@@ -33,10 +33,13 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(updatePost(currentId, postData));
     } else {
       dispatch(createPost(postData));
+      clear();
     }
   };
 
   const clear = () => {
+    setCurrentId(null);
+
     setPostData({
       creator: "",
       title: "",
@@ -55,7 +58,7 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h5" marginTop="20px">
-          Creating a Memory
+          {currentId ? "Editing" : "Creating"} Creating a Memory
         </Typography>
         <TextField
           name="creator"
@@ -91,7 +94,9 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Tags"
           fullWidth
           value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
         />
         <div className={classes.fileInput}>
           <FileBase
@@ -114,7 +119,6 @@ const Form = ({ currentId, setCurrentId }) => {
           Submit
         </Button>
         <Button
-          marginBottom="10px"
           variant="contained"
           color="error"
           size="small"

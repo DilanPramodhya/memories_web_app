@@ -7,9 +7,9 @@ export default makeStyles({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     backgroundBlendMode: "darken",
   },
-  border: {
-    border: "solid",
-  },
+  // border: {
+  //   border: "1px solid",
+  // },
   fullHeightCard: {
     height: "100%",
   },
@@ -17,9 +17,11 @@ export default makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    borderRadius: "15px",
+    border: "2px solid #000",
+    borderRadius: 15,
     height: "100%",
     position: "relative",
+    overflow: "hidden",
   },
   overlay: {
     position: "absolute",
