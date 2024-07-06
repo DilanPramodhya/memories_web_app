@@ -8,7 +8,19 @@ const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+<<<<<<< HEAD
 app.use(cors());
+=======
+app.use(
+  cors(
+    ({
+      origin: ["https://deploy.mern-.vercel.app"],
+      methods: ["CREATE", "UPDATE", "DELETE", "FETCH_ALL"],
+      credentials: true,
+    }
+  )
+);
+>>>>>>> 75c2e0f41bac9bf51321ac61c22f7d8da05018fb
 
 app.use("/posts", postRoutes);
 
