@@ -119,6 +119,7 @@ const Form = ({ currentId, setCurrentId }) => {
           Submit
         </Button>
         <Button
+          className={classes.buttonSubmit}
           variant="contained"
           color="error"
           size="small"
