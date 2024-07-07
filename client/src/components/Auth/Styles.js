@@ -17,14 +17,21 @@ export default makeStyles(() => ({
     gap: "8px",
   },
   avatar: {
-    backgroundColor: "#cc1b3e",
+    // backgroundColor: "#cc1b3e",
+    backgroundColor: "gray",
     marginTop: "10px",
   },
   form: {
     width: "90%",
   },
   submit: {},
-  googleButton: {},
+  googleButton: {
+    // marginTop: "10px",
+    marginBottom: "10px",
+    display: "flex",
+    alignItems: "center",
+    marginLeft: "30%",
+  },
   submitButton: {
     marginTop: "10px",
     marginBottom: "20px",
