@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useStyles from "./Styles";
 import {
   Avatar,
   Button,
   Container,
   Grid,
+  Icon,
   Paper,
   Typography,
 } from "@mui/material";
 import LockOutlined from "@mui/icons-material/LockOutlined";
 import Input from "./Input";
-import { gapi } from "gapi-script";
-import Login from "./login";
-
-const clientId =
-  "406082678075-m24qa5ngqct1hea4u50c3ch9no98rf3s.apps.googleusercontent.com";
+import GoogleLogin from "react-google-login";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(true);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -33,24 +34,34 @@ const Auth = () => {
     handleShowPassword(false);
   };
 
-  // const googleSuccess = async (res) => {
-  //   console.log(res);
-  // };
+  const googleSuccess = async (res) => {
+    // console.log(res);
+    const result = res?.profileObj;
+    const token = res?.tokenId;
 
-  // const googleFailure = (error) => {
-  //   console.log(error);
-  //   console.log("Google Sign In was Unsuccessful. Try again later");
-  // };
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
 
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
+      history.push("/");
+    } catch (error) {
+      console.log(error);
     }
-    gapi.load("client:auth2", start);
-  });
+  };
+
+  const googleFailure = (error) => {
+    console.log(error);
+    console.log("Google Sign In was Unsuccessful. Try again later");
+  };
+
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope: "",
+  //     });
+  //   }
+  //   gapi.load("client:auth2", start);
+  // });
   // var accessToken = gapi.auth.getToken().access_token;
 
   return (
@@ -118,11 +129,10 @@ const Auth = () => {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
-          {/* <GoogleLogin
+          <GoogleLogin
             clientId="406082678075-m24qa5ngqct1hea4u50c3ch9no98rf3s.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
-                className={classes.googleButton}
                 color="secondary"
                 fullWidth
                 onClick={renderProps.onClick}
@@ -136,9 +146,8 @@ const Auth = () => {
             onSuccess={googleSuccess}
             onFailure={googleFailure}
             cookiePolicy="single_host_origin"
-          /> */}
-          <Login />
-          {/* <Logout /> */}
+          />
+          {/* <Login /> */}
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>

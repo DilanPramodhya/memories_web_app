@@ -27,7 +27,7 @@ function Login() {
     }
   };
   const onFailure = (res) => {
-    console.log("Login Success", res);
+    console.log("Login Fail", res);
   };
   return (
     <div id="signInButton">

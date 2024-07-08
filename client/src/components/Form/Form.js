@@ -58,7 +58,7 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h5" marginTop="20px">
-          {currentId ? "Editing" : "Creating"} Creating a Memory
+          {currentId ? "Editing" : "Creating"} a Memory
         </Typography>
         <TextField
           name="creator"

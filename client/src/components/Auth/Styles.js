@@ -24,16 +24,13 @@ export default makeStyles(() => ({
   form: {
     width: "90%",
   },
-  submit: {},
   googleButton: {
-    // marginTop: "10px",
-    marginBottom: "10px",
     display: "flex",
     alignItems: "center",
     marginLeft: "30%",
   },
   submitButton: {
     marginTop: "10px",
-    marginBottom: "20px",
+    marginBottom: "10px",
   },
 }));
