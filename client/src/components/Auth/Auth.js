@@ -5,37 +5,57 @@ import {
   Button,
   Container,
   Grid,
-  Icon,
   Paper,
   Typography,
 } from "@mui/material";
+import Icon from "./icon";
 import LockOutlined from "@mui/icons-material/LockOutlined";
 import Input from "./Input";
 import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { signin, signup } from "../../actions/auth";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(true);
+  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleChange = () => {};
+    if (isSignup) {
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
-    // console.log(res);
+    console.log(res);
     const result = res?.profileObj;
     const token = res?.tokenId;
 
@@ -121,8 +141,8 @@ const Auth = () => {
             )}
           </Grid>
           <Button
-            className={classes.submitButton}
             type="submit"
+            className={classes.submitButton}
             fullWidth
             variant="contained"
             color="primary"
@@ -130,7 +150,7 @@ const Auth = () => {
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
           <GoogleLogin
-            clientId="406082678075-m24qa5ngqct1hea4u50c3ch9no98rf3s.apps.googleusercontent.com"
+            clientId="394964167085-f61mpolc062pu8k3o7f1lvi09m86l1f8.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
                 color="secondary"
